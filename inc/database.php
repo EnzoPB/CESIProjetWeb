@@ -1,7 +1,21 @@
 <?php
-$pdo = new PDO('mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['database'],
-    $config['db']['username'], $config['db']['password']);
 
-if ($config['debug']) {
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+class Database {
+    public $pdo;
+
+    public function __construct($host, $database, $username, $password) {
+        global $config;
+
+        $this->pdo = new PDO('mysql:host=' . $host . ';dbname=' . $database, $username, $password);
+    
+        if ($config['debug']) {
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }    
+    }
+
+    public function query($queryString, $data = []) {
+        $query = $this->pdo->prepare($queryString);
+        $query->execute($data);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
