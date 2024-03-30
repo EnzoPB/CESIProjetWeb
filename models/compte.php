@@ -1,12 +1,12 @@
 <?php
 
 class Compte {
-    public $id;
-    public $nom;
-    public $prenom;
-    public $centre;
-    public $mdp;
-    public $nomUtilisateur;
+    private $id;
+    private $nom;
+    private $prenom;
+    private $centre;
+    private $mdp;
+    private $nomUtilisateur;
 
     public function getId() {
         return $this->id;

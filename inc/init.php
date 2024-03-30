@@ -7,5 +7,7 @@ if ($config['debug']) {
 }
 
 include_once('database.php');
-
 $db = new Database($config['db']['host'], $config['db']['database'], $config['db']['username'], $config['db']['password']);
+
+include_once('session.php');
+$session = new Session();

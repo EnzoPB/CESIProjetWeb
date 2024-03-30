@@ -5,7 +5,7 @@ class Tuteur extends Compte {}
 
 class TuteursService {
     // avoir un tuteur unique par son ID
-    public static function get($id) {
+    public static function getById($id) {
         global $db;
         $result = $db->query(
             'SELECT * FROM tuteur INNER JOIN compte on tuteur.id_compte = compte.id_compte WHERE tuteur.id_compte = ?',
