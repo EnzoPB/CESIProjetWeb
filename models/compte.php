@@ -32,15 +32,15 @@ class Compte {
         return $this->nomUtilisateur;
     }
 
-    public function __construct($tuteurObj = null) {
+    public function __construct($compteObj = null) {
         // on remplit les attributs avec l'array en paramètre
-        if ($tuteurObj != null) {
-            $this->id = $tuteurObj['id_compte'];
-            $this->nom = $tuteurObj['nom'];
-            $this->prenom = $tuteurObj['prenom'];
-            $this->centre = $tuteurObj['centre'];
-            $this->mdp = $tuteurObj['mdp'];
-            $this->nomUtilisateur = $tuteurObj['nomutilisateur'];
+        if ($compteObj != null) {
+            $this->id = $compteObj['id_compte'];
+            $this->nom = $compteObj['nom'];
+            $this->prenom = $compteObj['prenom'];
+            $this->centre = $compteObj['centre'];
+            $this->mdp = $compteObj['mdp'];
+            $this->nomUtilisateur = $compteObj['nomutilisateur'];
         }
     }
 

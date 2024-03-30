@@ -1,11 +1,22 @@
 <?php
 include_once('compte.php');
+include_once('promotion.php');
 
 class Eleve extends Compte {
-    private $promotion;
+    private $promotionId;
 
     public function getPromotion() {
-        return $this->promotion;
+        return PromotionsService::getById($this->promotionId);
+    }
+
+    public function __construct($eleveObj = null) {
+        // on appelle le constructeur de Compte
+        parent::__construct($eleveObj);
+
+        // et on remplit l'attributs en plus avec l'array en paramètre
+        if ($eleveObj != null) {
+            $this->promotionId = $eleveObj['id_promotion'];
+        }
     }
 }
 
