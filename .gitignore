@@ -1,3 +1,6 @@
 inc/config.php
 .idea/
+.vscode/
 phpmyadmin/
+.phpunit.result.cache
+phpunit
