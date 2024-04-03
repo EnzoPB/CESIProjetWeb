@@ -1,32 +1,26 @@
 <?php
 include_once('compte.php');
+include_once('service.php');
 
-class Tuteur extends Compte {}
-
-class TuteursService {
-    // avoir un tuteur unique par son ID
-    public static function getById($id) {
-        global $db;
-        $result = $db->query(
-            'SELECT * FROM tuteur INNER JOIN compte on tuteur.id_compte = compte.id_compte WHERE tuteur.id_compte = ?',
-            [$id]
-        );
-        if (empty($result)) {
-            return null;
-        }
-        return new Tuteur($result[0]);
+class Tuteur extends Compte {
+    public function creer() {
+        global $bdd;
+        // on appelle la méthode de Compte pour inserer toutes les données initiales
+        parent::creer();
+        // puis on ajoute la ligne dans la table tuteur
+        $bdd->req('INSERT INTO tuteur(id_compte) VALUES(?)', [
+            $this->getId()
+        ]);
     }
+}
 
-    // avoir un tuteur unique par son nom d'utilisateur
-    public static function getByUsername($username) {
-        global $db;
-        $result = $db->query(
-            'SELECT * FROM tuteur INNER JOIN compte on tuteur.id_compte = compte.id_compte WHERE compte.nomutilisateur = ?',
-            [$username]
-        );
-        if (empty($result)) {
-            return null;
-        }
-        return new Tuteur($result[0]);
+class TuteursService extends ServiceBase {
+    protected static $table = 'tuteur';
+    protected static $colonneId = 'id_compte';
+    protected static $classe = 'Tuteur';
+    protected static $requeteGet = 'SELECT * FROM tuteur INNER JOIN compte ON tuteur.id_compte = compte.id_compte WHERE compte.{cle} = ?';
+
+    public static function getByUsername($nomUtilisateur) {
+        return self::getOneBy('nomUtilisateur', $nomUtilisateur);
     }
 }

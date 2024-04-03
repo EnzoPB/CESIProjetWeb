@@ -1,6 +1,6 @@
 <?php
 
-class Database {
+class BaseDeDonnees {
     public $pdo;
 
     public function __construct($host, $database, $username, $password) {
@@ -13,9 +13,13 @@ class Database {
         }    
     }
 
-    public function query($queryString, $data = []) {
-        $query = $this->pdo->prepare($queryString);
-        $query->execute($data);
-        return $query->fetchAll(PDO::FETCH_ASSOC);
+    public function req($reqString, $donnees = []) {
+        $req = $this->pdo->prepare($reqString);
+        $req->execute($donnees);
+        return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function dernierId() {
+        return $this->pdo->lastInsertId();
     }
 }

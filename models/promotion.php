@@ -15,17 +15,29 @@ class Promotion {
     public function getNom() {
         return $this->nom;
     }
+    public function setNom($nom) {
+        $this->nom = $nom;
+    }
     
     public function getSpecialite() {
         return $this->specialite;
+    }
+    public function setSpecialite($specialite) {
+        $this->specialite = $specialite;
     }
     
     public function getAnnee() {
         return $this->annee;
     }
+    public function setAnnee($annee) {
+        $this->annee = $annee;
+    }
     
     public function getTuteur() {
         return TuteursService::getById($this->tuteurId);
+    }
+    public function setTuteur($tuteur) {
+        $this->tuteurId = $tuteur->getId();
     }
 
     public function __construct($promotionObj = null) {
@@ -45,8 +57,8 @@ class Promotion {
 class PromotionsService {
     // avoir une promotion unique par son ID
     public static function getById($id) {
-        global $db;
-        $result = $db->query(
+        global $bdd;
+        $result = $bdd->req(
             'SELECT * FROM promotion WHERE id_promotion = ?',
             [$id]
         );
